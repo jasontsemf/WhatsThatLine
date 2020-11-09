@@ -18,9 +18,9 @@ Users start the quiz by searching a song with their voice, by saying "A song by 
 
 ## Choosing APIs
 
-It took me quite a while to settle on the APIs that provide me the right function that I need, and also easy to be set up. I did digging through the API docs from multiple services. First I came across [Genius.com](https://docs.genius.com/). It looked like the perfect API, before I found it is not provide the lyrics, but only everything else. I moved on to and again gave up on [Musixmatch API](https://developer.musixmatch.com/), as it does not provide the full lyrics (unless you go pro).
+It took me quite a while to settle on the APIs that provide me the right function that I need, and also easy to be set up. I did digging through the API docs from multiple services. First I came across [Genius.com](https://docs.genius.com/). It looked like the perfect API, before I found it is not providing the lyrics, but everything else. I moved on to and again gave up on [Musixmatch API](https://developer.musixmatch.com/), as it does not provide the full lyrics (unless you go pro).
 
-Then I stumbled upon the API by [APISEEDS](https://apiseeds.com/documentation/lyrics). It works well for me. Despite the fact that it is not free, I have 10,000 free credits to work with. Eventually, I brought the Genius API back for just displaying the corresponding album art, which is not the focus of this project, as the icing on the cake.
+Then I stumbled upon the API provided by [APISEEDS](https://apiseeds.com/documentation/lyrics). It works well for me. Despite the fact that it is not free, I have 10,000 free credits to work with. Eventually, I brought the Genius API back for just displaying the corresponding album art, which is not the focus of this project, as the icing on the cake.
 
 ## Coding
 
@@ -28,11 +28,11 @@ I code the project with the mindset of "most functionality with the least time s
 
 ### Setting up the API
 
-I am not very experienced in working with private APIs. I used to find a public one from this [list on GitHub](https://github.com/public-apis/public-apis). I know there will by problems of dealing with `CORS` lying ahead. I first try to call the API and try to look at the result with `Postman`, which was very helpful that I can do everything in a controllable environment, instead of messing with wrong code.
+I am not very experienced in working with private APIs. I used to find and use public ones for my projects from this [list on GitHub](https://github.com/public-apis/public-apis). I know there will be problems of dealing with `CORS` lying ahead. I first try to call the API and try to look at the result with [Postman](https://www.postman.com/), which was very helpful that I can do everything in a controllable environment, instead of messing with wrong code.
 
-I consider making this project a `node.js` project at a point, as I know this is the way to "do it properly", and I don't have to worry too much about disclosing my API credentials, as I can hide them in the backend. After some research, I decided to go the low tech way, "input the API keys from the user", instead of developing this as a `node.js` app, as it was not as easy as it seemed, while I found no easy-to-follow tutorials online. But I guess the idea will be, with `express`, the static code call the API served by it's own `endpoints`, where they are rerouteed to the external APIs. But again, I don't have a crystal clear picture of how it should work. Maybe it can be the next assignment for myself.
+I consider making this project a `node.js` project at the very begining, as I know this is the way to "do it properly", and I don't have to worry about disclosing my API credentials anymore, as I can hide them in the backend. After some research, I decided to go the low tech way, "input the API keys from the user", instead of developing this as a `node.js` app, as it was not as easy as it seemed (maybe), while I found no easy-to-follow tutorials online. But I guess the idea will be, with `express`, the static code call the API served by it's own `endpoints`, where they are rerouted to the external APIs. But again, I don't have a crystal clear picture of how it should work in a complete picture. Maybe it can be the next assignment for myself.
 
-Below is how the lyrics is obtained from the API call. Please refer to the inline comments for detailed explanation.
+Below is how the lyrics is obtained from the API call, and how I processed the data for later use. Please refer to the inline comments for detailed explanation.
 
 ``` javascript
 let getLyrics = async () => {
@@ -262,6 +262,33 @@ body {
     align-items: center;
     outline: none;
 }
+```
+
+### Regular Expression ()
+
+When it comes to processing text, it is inevitable to leverage `regular expression`. I am totally unfamiliar with it, and I know it is possibly an art to master. But I would like to conclude what kind of `regular expression` is used in the project, so that I can refer back to it later.
+
+[Regular Expressions Cheatsheet by Mozilla](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Cheatsheet)
+
+``` js
+// [] A character set. Matches any one of the enclosed characters.
+// Forward slashes /blah/ indicate the sytart and end of the regular expression
+// \r = CR (Carriage Return) → Used as a new line character in Mac OS before X
+// \n = LF (Line Feed) → Used as a new line character in Unix/Mac OS X
+// \r\n = CR + LF → Used as a new line character in Windows
+lyricsArray = lyrics.split(/[\r\n]+/);
+
+// You can specify a range of characters by using a hyphen
+// The g at the end is a flag and indicates it is a global search.
+// Regular expressions have four optional flags that allow for global and case insensitive searching. To indicate a global search, use the g flag. To indicate a case-insensitive search, use the i flag. To indicate a multi-line search, use the m flag. To perform a "sticky" search, that matches starting at the current position in the target string, use the y flag.
+displayQuestion[2] = temp.replace(/[a-zA-Z0-9]/g, '_');
+
+// Picturing a slash is walking to the right as forward
+// "/" is a forward slash, it is leaning forward
+// "\" is a backward slash, vice versa
+// backward slash \ is used to escapce special characters
+// below is also escaping a forward slash/ with a backward slash\, also ^ and *
+s = s.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()“”?]/g, "");
 ```
 
 ## Future Improvements

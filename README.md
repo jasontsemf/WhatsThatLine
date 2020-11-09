@@ -2,6 +2,8 @@
 
 [Live demo on glitch](https://whats-that-line.glitch.me/)
 
+YouTube Demo
+
 [![What's that Line - Demo on YouTube](http://img.youtube.com/vi/7a0ocnkS0Gg/0.jpg)](http://www.youtube.com/watch?v=7a0ocnkS0Gg "What's that Line")
 
 ## About
@@ -28,7 +30,7 @@ I code the project with the mindset of "most functionality with the least time s
 
 ### Setting up the API
 
-I am not very experienced in working with private APIs. I used to find and use public ones for my projects from this [list on GitHub](https://github.com/public-apis/public-apis). I know there will be problems of dealing with `CORS` lying ahead. I first try to call the API and try to look at the result with [Postman](https://www.postman.com/), which was very helpful that I can do everything in a controllable environment, instead of messing with wrong code.
+I am not very experienced in working with private APIs. I used to find and use public ones for my projects from this [list on GitHub](https://github.com/public-apis/public-apis). I know there will be problems of dealing with `CORS` lying ahead. I first try to call the API and try to look at the result with [`Postman`](https://www.postman.com/), which was very helpful that I can do everything in a controllable environment, instead of messing with wrong code.
 
 I consider making this project a `node.js` project at the very begining, as I know this is the way to "do it properly", and I don't have to worry about disclosing my API credentials anymore, as I can hide them in the backend. After some research, I decided to go the low tech way, "input the API keys from the user", instead of developing this as a `node.js` app, as it was not as easy as it seemed (maybe), while I found no easy-to-follow tutorials online. But I guess the idea will be, with `express`, the static code call the API served by it's own `endpoints`, where they are rerouted to the external APIs. But again, I don't have a crystal clear picture of how it should work in a complete picture. Maybe it can be the next assignment for myself.
 
@@ -91,7 +93,7 @@ let getLyrics = async () => {
 
 Getting the album art is way less complicated, as not much parsing is needed. However this is the first time that I call an `oauth2` API using a `Bearer Token`. I tooked me a while to figure out I don't need to request/refresh the token from the site with my `Client ID` and `Client Secret`. If I am coding a `node.js` app, I can do it right. But for the purpose of this project, I am keeping this simple.
 
-What is ***SUPER USEFUL*** here is using the the [`cors-anywhere`](https://cors-anywhere.herokuapp.com/) (documentation on [GitHub](https://github.com/Rob--W/cors-anywhere/)). Without re-routing my original external API using their proxy service, I have no idea what should I do to pull off my API call. Highly recommend this proxy service.
+What is ***SUPER USEFUL*** here is using [`cors-anywhere`](https://cors-anywhere.herokuapp.com/) (documentation on [GitHub](https://github.com/Rob--W/cors-anywhere/)). Without re-routing my original external API using their proxy service, I have no idea what should I do to pull off my API call. Highly recommend this proxy service.
 
 ``` javascript
 let getAlbumArt = async () => {

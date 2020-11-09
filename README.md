@@ -190,8 +190,37 @@ recognition.onerror = (event) => {
     console.log("something went wrong: " + event.error);
 };
 ```
+### Regular Expression
 
-### Regular Expressions
+When it comes to processing text, it is inevitable to leverage `regular expression`. I am totally unfamiliar with it, and I know it is an art to master with a lot of practice. But I would like to conclude what kind of `regular expression` is used in the project, so that I can refer back to it later.
+
+[Regular Expressions Cheatsheet by Mozilla](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Cheatsheet)
+
+``` js
+// [] A character set. Matches any one of the enclosed characters.
+// Forward slashes /blah/ indicate the sytart and end of the regular expression
+// \r = CR (Carriage Return) → Used as a new line character in Mac OS before X
+// \n = LF (Line Feed) → Used as a new line character in Unix/Mac OS X
+// \r\n = CR + LF → Used as a new line character in Windows
+lyricsArray = lyrics.split(/[\r\n]+/);
+
+// You can specify a range of characters by using a hyphen
+// The g at the end is a flag and indicates it is a global search.
+// Regular expressions have four optional flags that allow for global and case insensitive searching.
+// To indicate a global search, use the g flag.
+// To indicate a case-insensitive search, use the i flag.
+// To indicate a multi-line search, use the m flag.
+// To perform a "sticky" search, that matches starting at the current position in the target string, use the y flag.
+displayQuestion[2] = temp.replace(/[a-zA-Z0-9]/g, '_');
+
+// Picturing a slash is walking to the right as forward, like how you type
+// "/" is a forward slash, it is leaning forward
+// "\" is a backward slash, vice versa
+// backward slash \ is used to escapce special characters
+// below is escaping a forward slash/ with a backward slash\, also a ^ and a *
+// technically a backward slash can also be escaped with a backward slash...
+s = s.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()“”?]/g, "");
+```
 
 ### CSS
 
@@ -264,38 +293,6 @@ body {
     align-items: center;
     outline: none;
 }
-```
-
-### Regular Expression ()
-
-When it comes to processing text, it is inevitable to leverage `regular expression`. I am totally unfamiliar with it, and I know it is an art to master with a lot of practice. But I would like to conclude what kind of `regular expression` is used in the project, so that I can refer back to it later.
-
-[Regular Expressions Cheatsheet by Mozilla](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Cheatsheet)
-
-``` js
-// [] A character set. Matches any one of the enclosed characters.
-// Forward slashes /blah/ indicate the sytart and end of the regular expression
-// \r = CR (Carriage Return) → Used as a new line character in Mac OS before X
-// \n = LF (Line Feed) → Used as a new line character in Unix/Mac OS X
-// \r\n = CR + LF → Used as a new line character in Windows
-lyricsArray = lyrics.split(/[\r\n]+/);
-
-// You can specify a range of characters by using a hyphen
-// The g at the end is a flag and indicates it is a global search.
-// Regular expressions have four optional flags that allow for global and case insensitive searching.
-// To indicate a global search, use the g flag.
-// To indicate a case-insensitive search, use the i flag.
-// To indicate a multi-line search, use the m flag.
-// To perform a "sticky" search, that matches starting at the current position in the target string, use the y flag.
-displayQuestion[2] = temp.replace(/[a-zA-Z0-9]/g, '_');
-
-// Picturing a slash is walking to the right as forward, like how you type
-// "/" is a forward slash, it is leaning forward
-// "\" is a backward slash, vice versa
-// backward slash \ is used to escapce special characters
-// below is escaping a forward slash/ with a backward slash\, also a ^ and a *
-// technically a backward slash can also be escaped with a backward slash...
-s = s.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()“”?]/g, "");
 ```
 
 ## Future Improvements

@@ -1,0 +1,189 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background: rgb(11, 11, 11);
+    background: linear-gradient(0deg, rgba(11, 11, 11, 1) 0%, rgba(21, 25, 55, 1) 100%);
+    color: white;
+}
+
+#project-name{
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    padding: 2vh;
+    font-weight: 700;
+    font-size: large;
+}
+@media only screen and (min-device-width: 360px) and (max-device-width: 812px){
+    #project-name{
+        padding: 2vh;
+        font-weight: 700;
+        font-size: 3em;
+    }
+}
+
+#art {
+    max-width: 20vw;
+    margin: 30px;
+}
+@media only screen and (min-device-width: 360px) and (max-device-width: 812px){
+    #art {
+        max-width: 30vh;
+        /* margin: 30px; */
+    }
+}
+
+#question-div {
+    text-align: center;
+    font-size: x-large;
+    margin: 20px;
+}
+@media only screen and (min-device-width: 360px) and (max-device-width: 812px){
+    #question-div {
+        text-align: center;
+        font-size: 3em;
+        margin-top: 5vh;
+        margin-bottom: 2.5vh;
+    }
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* border: 1px white solid; */
+    min-height: 98vh;
+}
+
+.item {
+    /* border: 1px white solid; */
+    /* max-width: 50%; */
+}
+@media only screen and (min-device-width: 360px) and (max-device-width: 812px){
+    .item {
+        max-width: 90vw;
+    }
+}
+
+#search {
+    /* position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -20%); */
+    width: 40vw;
+    height: 40px;
+    border-radius: 40px;
+    padding: 10px;
+    margin: 20px;
+    background-color: #ededed;
+    z-index: 1;
+}
+
+@media only screen and (min-device-width: 360px) and (max-device-width: 812px){
+    #search {
+        width: 80vw;
+        height: 4vh;
+        border-radius: 4vh;
+    }
+}
+
+#searchTerm {
+    border: none;
+    background: none;
+    outline: none;
+    float: left;
+    padding: 0;
+    color: #3d3d3d;
+    font-size: 16px;
+    transition: 0.6s;
+    line-height: 40px;
+    width: 70%;
+    padding: 0 20px;
+}
+
+@media only screen and (min-device-width: 360px) and (max-device-width: 812px){
+    #searchTerm {
+        font-size: xx-large;
+        transition: 0.6s;
+        line-height: 4vh;
+    }
+}
+
+#search-button {
+    border: none;
+    border-radius: 50%;
+    background-color: #00ff22;
+    /* box-shadow: 0px -6px 10px rgba(255, 255, 255, 1), 0px 4px 15px rgba(0, 0, 0, 0.2); */
+    color: #Ffffff;
+    float: right;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* transition: box-shadow 200ms cubic-bezier(0.42, 0, 0.58, 1); */
+    outline: none;
+}
+@media only screen and (min-device-width: 360px) and (max-device-width: 812px){
+    #search-button {
+        width: 4vh;
+        height: 4vh;
+        font-size: xx-large;
+    }
+}
+
+#answer-button {
+    width: 15vw;
+    height: 40px;
+    border: none;
+    border-radius: 40px;
+    padding: 10px;
+    margin: 10px;
+    background-color: #00ff22;
+    color: white;
+    outline: none;
+}
+@media only screen and (min-device-width: 360px) and (max-device-width: 812px){
+    #answer-button {
+        width: 40vw;
+        height: 4vh;
+        border-radius: 4vh;
+        padding: 10px;
+        margin: 10px;
+        font-size: 2.5em;
+    }
+}
+
+#speech-div {
+    color: gainsboro;
+    font-size: normal;
+    padding: 1vh;
+}
+@media only screen and (min-device-width: 360px) and (max-device-width: 812px){
+    #speech-div {
+        font-size: 3em;
+        max-width: 75vw;
+        padding: 1vh;
+        text-align: center;
+    }
+}
+
+#check-icon{
+    font-size: large;
+}
+@media only screen and (min-device-width: 360px) and (max-device-width: 812px){
+    #check-icon{
+        font-size: 1.5em;
+    }
+}
+
+#correct-answer{
+    padding: 0.5vh;
+    font-size: xx-large;
+    color: #00ff22;
+}
+@media only screen and (min-device-width: 360px) and (max-device-width: 812px){
+    #correct-answer{
+        font-size: 1.75em;
+    }
+}

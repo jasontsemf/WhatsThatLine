@@ -57,8 +57,10 @@ const getSpeech = () => {
 		// searching for a new song
 		if (state == "search") {
 			// handling query search
+			// ensure that the user is speaking in the right "grammar"
 			if (speechResult.includes(" by ")) {
 				temp = speechResult.split(" by ");
+				// prepare track and artist for API call
 				track = temp[0];
 				artist = temp[1];
 				if (track && artist) {
@@ -77,14 +79,16 @@ const getSpeech = () => {
 			}
 		} else {
 			// answering question
+			// checking if what the user said is similar enough to be considered a correct
+			// 0.85 seemed to work reasonably without being too strict
 			if (similarity(question, clean(speechResult)) > 0.85) {
 				// console.log("correct");
 				answerButton.textContent = "";
 				let correctIcon = document.createElement('i');
 				correctIcon.className = "fa fa-check-circle";
 				correctIcon.id = "check-icon";
-				// correctIcon.style = "font-size: large";
 				answerButton.appendChild(correctIcon);
+				// displaying the missing line back
 				let child = document.querySelector("#question-div").childNodes;
 				child[2].textContent = `"${displayAnswer}"`;
 			} else {
@@ -107,39 +111,48 @@ const getSpeech = () => {
 };
 
 let getLyrics = async () => {
+	// templating string, and Api key is not written in the URL
 	fetch(`https://orion.apiseeds.com/api/music/lyric/${artist}/${track}?apikey=${lyricsApiKey}`, {
 		mode: "cors"
 	}).
 	then(response => response.json()).
 	then(data => {
-		// console.log(data);
+		// data massaging starts
 		rawData = data;
+		// assign the lyrics text to be a string
 		lyrics = rawData.result.track.text;
-		// console.log(lyrics);
+		// split the string into lines of lyrics in an array
 		lyricsArray = lyrics.split(/[\r\n]+/);
-		// console.log(lyricsArray);
-
+		// console.log("Lyrics Array:" lyricsArray);
+		
+		// generate a random integer to decide what the scope of lyrics should be
 		let randomIndex = getRandomInt(lyricsArray.length - 4);
-		console.log("random index: ", randomIndex);
+		// console.log("random index: ", randomIndex);
 		for (i = 0; i < 4; i++) {
+			// offseting the lyrics array
 			displayQuestion[i] = lyricsArray[randomIndex + i];
 		}
+		// the actual hidden line is the 3rd line of the 4 lines
 		displayAnswer = displayQuestion[2];
 		question = displayQuestion[2];
+		// removing special characters and convert to lower case, as question is used to check against the voice input
 		question = clean(question);
 		console.log("correct answer is: ", question);
 		let temp = displayQuestion[2];
+		// display the hidden line with underscores
 		displayQuestion[2] = temp.replace(/[a-zA-Z0-9]/g, '_');
+		// dynamically displaying all the lines
 		for (i = 0; i < displayQuestion.length; i++) {
 			let newElement = document.createElement('div');
 			newElement.textContent = displayQuestion[i];
 			newElement.style = "padding: 0.5vh";
+			// special style treatment for the hidden line
 			if (i == 2) {
-				// newElement.textContent = `"${displayQuestion[i]}"`;
 				newElement.id = "correct-answer";
 			}
 			document.querySelector("#question-div").appendChild(newElement);
 		}
+		// show the hidden button
 		answerButton.style = "display: inline";
 		searchTermDOM.value = "";
 	}).catch(error => {
@@ -150,8 +163,10 @@ let getLyrics = async () => {
 }
 
 let getAlbumArt = async () => {
+	// setting up the header, referencing the code from `Postman`
 	var myHeaders = new Headers();
 	myHeaders.append("Content-Type", "application/json");
+	// for oauth2 authorization
 	myHeaders.append("Authorization", `Bearer ${artBearerToken}`);
 	// myHeaders.append("Cookie", "__cfduid=d497947cf15db73df992723e38c1f74b41604739448");
 	myHeaders.append("Mode", "cors");
@@ -176,16 +191,14 @@ let getAlbumArt = async () => {
 // Button and Input Handler
 searchButton.onclick = () => {
 	state = "search";
-	console.log("clicked new");
+	console.log("clicked search");
+	// support a type in search besides a voice search
 	let query = searchTermDOM.value;
 	if (query) {
 		temp = query.split(" by ");
 		track = temp[0];
 		artist = temp[1];
-		console.log("track: " + track);
-		console.log("artist: " + artist);
 		if (track && artist) {
-			console.log("a search is ready");
 			document.querySelector("#question-div").innerHTML = "";
 			getLyrics();
 			getAlbumArt();
@@ -206,14 +219,6 @@ searchTermDOM.oninput = () => {
 		searchButton.firstChild.className = "fa fa-search";
 	} else {
 		searchButton.firstChild.className = "fa fa-microphone";
-	}
-}
-
-searchTermDOM.onchange = (e) => {
-	if (e.textContent) {
-		searchButton.firstChild.className = "fa fa-search"
-	} else {
-		searchButton.firstChild.className = "fa fa-microphone"
 	}
 }
 

@@ -177,6 +177,7 @@ let getAlbumArt = async () => {
 		redirect: 'follow'
 	};
 
+	// using cors-anywhere proxy to do CORS anywhere
 	fetch(`https://cors-anywhere.herokuapp.com/https://api.genius.com/search?q=${track}`, requestOptions)
 		.then(response => response.json())
 		.then(result => {
